@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MEGANITE Platform</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #1e3c72, #2a5298);
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: gold;
+            margin-bottom: 20px;
+        }
+        .package {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid gold;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px;
+        }
+        .locked {
+            opacity: 0.5;
+        }
+        button {
+            padding: 10px 20px;
+            background: gold;
+            color: #1e3c72;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        button:disabled {
+            background: grey;
+            cursor: not-allowed;
+        }
+        .task-info {
+            margin-top: 10px;
+        }
+        .payment-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #fff;
+            color: #000;
+            padding: 20px;
+            border-radius: 10px;
+            z-index: 1000;
+        }
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+    </style>
+</head>
+<body>
+    <div class="logo">MEGANITE</div>
+
+    <div class="package">
+        <h2>Silver Package - Ksh 2000</h2>
+        <p>Earn Ksh 100 Daily for 365 Days</p>
+        <div class="task-info">2 Apps Daily</div>
+        <button onclick="showPayment()">Purchase</button>
+    </div>
+
+    <div class="package">
+        <h2>Gold Package - Ksh 4800</h2>
+        <p>Earn Ksh 250 Daily for 365 Days</p>
+        <div class="task-info">3 Apps Daily</div>
+        <button onclick="showPayment()">Purchase</button>
+    </div>
+
+    <div class="package">
+        <h2>Platinum Package - Ksh 15000</h2>
+        <p>Earn Ksh 700 Daily for 365 Days</p>
+        <div class="task-info">5 Apps Daily</div>
+        <button onclick="showPayment()">Purchase</button>
+    </div>
+
+    <div class="package locked">
+        <h2>Diamond Package - Ksh 30000</h2>
+        <p>Earn Ksh 1200 Daily for 365 Days</p>
+        <div class="task-info">7 Apps Daily</div>
+        <button disabled>Locked</button>
+    </div>
+
+    <div class="package locked">
+        <h2>Elite Package - Ksh 56000</h2>
+        <p>Earn Ksh 3000 Daily for 365 Days</p>
+        <div class="task-info">10 Apps Daily</div>
+        <button disabled>Locked</button>
+    </div>
+
+    <div class="overlay" id="overlay" onclick="hidePayment()"></div>
+    <div class="payment-popup" id="paymentPopup">
+        <h3>Payment Instructions</h3>
+        <p>Send the package amount to: <strong>0796940064</strong></p>
+        <button onclick="hidePayment()">Close</button>
+    </div>
+
+    <script>
+        function showPayment() {
+            document.getElementById('overlay').style.display = 'block';
+            document.getElementById('paymentPopup').style.display = 'block';
+        }
+        function hidePayment() {
+            document.getElementById('overlay').style.display = 'none';
+            document.getElementById('paymentPopup').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
+
