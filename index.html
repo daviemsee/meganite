@@ -1,128 +1,162 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MEGANITE Platform</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(to right, #1e3c72, #2a5298);
-            color: #fff;
-            text-align: center;
-            padding: 20px;
-        }
-        .logo {
-            font-size: 28px;
-            font-weight: bold;
-            color: gold;
-            margin-bottom: 20px;
-        }
-        .package {
-            background: rgba(255, 255, 255, 0.1);
-            border: 2px solid gold;
-            border-radius: 10px;
-            padding: 15px;
-            margin: 10px;
-        }
-        .locked {
-            opacity: 0.5;
-        }
-        button {
-            padding: 10px 20px;
-            background: gold;
-            color: #1e3c72;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        button:disabled {
-            background: grey;
-            cursor: not-allowed;
-        }
-        .task-info {
-            margin-top: 10px;
-        }
-        .payment-popup {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: #fff;
-            color: #000;
-            padding: 20px;
-            border-radius: 10px;
-            z-index: 1000;
-        }
-        .overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 999;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meganite - Online Work Platform</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom, #002244, #003366);
+      color: white;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px;
+      background-color: #001f3f;
+    }
+    .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: gold;
+    }
+    .container {
+      padding: 20px;
+    }
+    .package-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    .package {
+      background-color: #003366;
+      border-radius: 10px;
+      padding: 15px;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+    .package.locked {
+      opacity: 0.5;
+    }
+    .package img {
+      width: 60px;
+      height: 60px;
+    }
+    .btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      background-color: gold;
+      color: black;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .btn:disabled {
+      background-color: gray;
+      cursor: not-allowed;
+    }
+    #paymentModal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0,0,0,0.6);
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-content {
+      background-color: white;
+      color: black;
+      padding: 30px;
+      border-radius: 10px;
+      text-align: center;
+      width: 300px;
+    }
+    .modal-content input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+    }
+  </style>
 </head>
 <body>
+  <header>
     <div class="logo">MEGANITE</div>
+  </header>
 
-    <div class="package">
-        <h2>Silver Package - Ksh 2000</h2>
-        <p>Earn Ksh 100 Daily for 365 Days</p>
-        <div class="task-info">2 Apps Daily</div>
-        <button onclick="showPayment()">Purchase</button>
+  <div class="container">
+    <h2>Available Packages</h2>
+    <div class="package-grid">
+      <div class="package">
+        <img src="https://img.icons8.com/clouds/100/000000/internship.png" />
+        <h3>Intern</h3>
+        <p>No Payment – 2 apps daily for 3 days<br />KES 200/day</p>
+        <button class="btn">Start</button>
+      </div>
+      <div class="package">
+        <img src="https://img.icons8.com/ios-filled/100/ffd700/mining-cart.png" />
+        <h3>Silver - KES 2,000</h3>
+        <p>2 apps daily · KES 100 daily</p>
+        <button class="btn" onclick="openPayment()">Purchase</button>
+      </div>
+      <div class="package">
+        <img src="https://img.icons8.com/ios-filled/100/ffd700/gold-bar.png" />
+        <h3>Gold - KES 4,800</h3>
+        <p>3 apps daily · KES 250 daily</p>
+        <button class="btn" onclick="openPayment()">Purchase</button>
+      </div>
+      <div class="package">
+        <img src="https://img.icons8.com/ios-filled/100/ffffff/diamond.png" />
+        <h3>Diamond - KES 15,000</h3>
+        <p>5 apps daily · KES 700 daily</p>
+        <button class="btn" onclick="openPayment()">Purchase</button>
+      </div>
+      <div class="package locked">
+        <img src="https://img.icons8.com/ios-glyphs/90/lock.png" />
+        <h3>Platinum - KES 30,000</h3>
+        <p>7 apps daily · KES 1,200 daily</p>
+        <button class="btn" disabled>Locked</button>
+      </div>
+      <div class="package locked">
+        <img src="https://img.icons8.com/ios-glyphs/90/lock.png" />
+        <h3>Obsidian - KES 56,000</h3>
+        <p>10 apps daily · KES 3,000 daily</p>
+        <button class="btn" disabled>Locked</button>
+      </div>
     </div>
+  </div>
 
-    <div class="package">
-        <h2>Gold Package - Ksh 4800</h2>
-        <p>Earn Ksh 250 Daily for 365 Days</p>
-        <div class="task-info">3 Apps Daily</div>
-        <button onclick="showPayment()">Purchase</button>
+  <div id="paymentModal">
+    <div class="modal-content">
+      <h3>Payment</h3>
+      <p>Send money to <strong>0796940064</strong></p>
+      <input type="text" placeholder="Enter M-PESA Code" id="mpesaCode" />
+      <button class="btn" onclick="confirmPayment()">Confirm</button>
+      <button class="btn" onclick="closePayment()">Cancel</button>
     </div>
+  </div>
 
-    <div class="package">
-        <h2>Platinum Package - Ksh 15000</h2>
-        <p>Earn Ksh 700 Daily for 365 Days</p>
-        <div class="task-info">5 Apps Daily</div>
-        <button onclick="showPayment()">Purchase</button>
-    </div>
-
-    <div class="package locked">
-        <h2>Diamond Package - Ksh 30000</h2>
-        <p>Earn Ksh 1200 Daily for 365 Days</p>
-        <div class="task-info">7 Apps Daily</div>
-        <button disabled>Locked</button>
-    </div>
-
-    <div class="package locked">
-        <h2>Elite Package - Ksh 56000</h2>
-        <p>Earn Ksh 3000 Daily for 365 Days</p>
-        <div class="task-info">10 Apps Daily</div>
-        <button disabled>Locked</button>
-    </div>
-
-    <div class="overlay" id="overlay" onclick="hidePayment()"></div>
-    <div class="payment-popup" id="paymentPopup">
-        <h3>Payment Instructions</h3>
-        <p>Send the package amount to: <strong>0796940064</strong></p>
-        <button onclick="hidePayment()">Close</button>
-    </div>
-
-    <script>
-        function showPayment() {
-            document.getElementById('overlay').style.display = 'block';
-            document.getElementById('paymentPopup').style.display = 'block';
-        }
-        function hidePayment() {
-            document.getElementById('overlay').style.display = 'none';
-            document.getElementById('paymentPopup').style.display = 'none';
-        }
-    </script>
+  <script>
+    function openPayment() {
+      document.getElementById("paymentModal").style.display = "flex";
+    }
+    function closePayment() {
+      document.getElementById("paymentModal").style.display = "none";
+    }
+    function confirmPayment() {
+      const code = document.getElementById("mpesaCode").value;
+      if (code.trim() !== "") {
+        alert("Payment confirmed with code: " + code);
+        closePayment();
+      } else {
+        alert("Please enter your M-PESA code.");
+      }
+    }
+  </script>
 </body>
 </html>
-
