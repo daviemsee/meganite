@@ -1,221 +1,204 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Meganite - Online Work Platform</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(to bottom, #001933, #004080);
-      color: white;
-    }
-    header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 20px;
-      background-color: #001a33;
-    }
-    .logo {
-      font-size: 1.8rem;
-      font-weight: bold;
-      color: gold;
-    }
-    .container {
-      padding: 20px;
-    }
-    .package-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-    }
-    .package {
-      background-color: #003366;
-      border-radius: 10px;
-      padding: 15px;
-      text-align: center;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    }
-    .package.locked {
-      opacity: 0.5;
-    }
-    .package img {
-      width: 60px;
-      height: 60px;
-    }
-    .btn {
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      background-color: gold;
-      color: black;
-      cursor: pointer;
-      margin-top: 10px;
-    }
-    .btn:disabled {
-      background-color: gray;
-      cursor: not-allowed;
-    }
-    #paymentModal, #processingModal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0,0,0,0.6);
-      justify-content: center;
-      align-items: center;
-    }
-    .modal-content {
-      background-color: white;
-      color: black;
-      padding: 30px;
-      border-radius: 10px;
-      text-align: center;
-      width: 300px;
-    }
-    .modal-content input {
-      width: 100%;
-      padding: 10px;
-      margin: 10px 0;
-    }
-    .tasks {
-      margin-top: 10px;
-    }
-    .task-link {
-      display: block;
-      color: lightgreen;
-      margin-top: 5px;
-      text-decoration: underline;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MEGANITE | Online Work Platform</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to bottom right, #001f3f, #FFD700);
+            color: #fff;
+        }
+
+        header {
+            background-color: #000e2e;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            color: #FFD700;
+        }
+
+        .packages {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .package {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            margin: 15px;
+            padding: 20px;
+            width: 280px;
+            transition: 0.3s;
+            border: 2px solid #FFD700;
+        }
+
+        .package img {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        .package.locked {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .package h2 {
+            color: #FFD700;
+            margin-top: 10px;
+        }
+
+        .payment-button {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #FFD700;
+            color: #001f3f;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            border-radius: 8px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #001f3f;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            color: #fff;
+        }
+
+        input[type="text"] {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: none;
+        }
+
+        .task-list {
+            margin-top: 10px;
+            text-align: left;
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px;
+            background-color: #000e2e;
+            margin-top: 30px;
+            color: #FFD700;
+        }
+    </style>
 </head>
+
 <body>
-  <header>
-    <div class="logo">MEGANITE</div>
-  </header>
+    <header>
+        <h1>MEGANITE</h1>
+        <p>Empowering You With Daily Online Tasks</p>
+    </header>
 
-  <div class="container">
-    <h2>Available Packages</h2>
-    <div class="package-grid">
-      <div class="package">
-        <img src="https://img.icons8.com/clouds/100/000000/internship.png" />
-        <h3>Intern</h3>
-        <p>No Payment – 2 apps daily for 3 days<br />KES 200/day</p>
-        <div class="tasks">
-          <a class="task-link" href="https://apkpure.com/facebook-lite/com.facebook.lite">Download Facebook Lite</a>
-          <a class="task-link" href="https://apkpure.com/whatsapp/com.whatsapp">Download WhatsApp</a>
+    <section class="packages">
+        <!-- Package 1 -->
+        <div class="package">
+            <img src="https://via.placeholder.com/280x150?text=Intern" alt="Intern">
+            <h2>Intern (Free)</h2>
+            <p>2 Apps Daily (3 Days) | Ksh 200/day</p>
+            <div class="task-list">
+                <ul>
+                    <li><a href="#">Download App 1</a></li>
+                    <li><a href="#">Download App 2</a></li>
+                </ul>
+            </div>
         </div>
-        <button class="btn">Start</button>
-      </div>
 
-      <div class="package">
-        <img src="https://img.icons8.com/ios-filled/100/ffd700/mining-cart.png" />
-        <h3>Silver - KES 2,000</h3>
-        <p>2 apps daily · KES 100/day for 365 days</p>
-        <div class="tasks">
-          <a class="task-link" href="#">Cloud App 1</a>
-          <a class="task-link" href="#">Cloud App 2</a>
+        <!-- Package 2 -->
+        <div class="package">
+            <img src="https://via.placeholder.com/280x150?text=Silver" alt="Silver">
+            <h2>Silver - Ksh 2000</h2>
+            <p>2 Apps Daily for 365 Days | Ksh 100/day</p>
+            <button class="payment-button" onclick="openPaymentModal('Silver')">Buy Package</button>
         </div>
-        <button class="btn" onclick="openPayment()">Purchase</button>
-      </div>
 
-      <div class="package">
-        <img src="https://img.icons8.com/ios-filled/100/ffd700/gold-bar.png" />
-        <h3>Gold - KES 4,800</h3>
-        <p>3 apps daily · KES 250/day</p>
-        <div class="tasks">
-          <a class="task-link" href="#">Cloud App 1</a>
-          <a class="task-link" href="#">Cloud App 2</a>
-          <a class="task-link" href="#">Cloud App 3</a>
+        <!-- Package 3 -->
+        <div class="package">
+            <img src="https://via.placeholder.com/280x150?text=Gold" alt="Gold">
+            <h2>Gold - Ksh 4800</h2>
+            <p>3 Apps Daily for 365 Days | Ksh 250/day</p>
+            <button class="payment-button" onclick="openPaymentModal('Gold')">Buy Package</button>
         </div>
-        <button class="btn" onclick="openPayment()">Purchase</button>
-      </div>
 
-      <div class="package">
-        <img src="https://img.icons8.com/ios-filled/100/ffffff/diamond.png" />
-        <h3>Diamond - KES 15,000</h3>
-        <p>5 apps daily · KES 700/day</p>
-        <div class="tasks">
-          <a class="task-link" href="#">Cloud App 1</a>
-          <a class="task-link" href="#">Cloud App 2</a>
-          <a class="task-link" href="#">Cloud App 3</a>
-          <a class="task-link" href="#">Cloud App 4</a>
-          <a class="task-link" href="#">Cloud App 5</a>
+        <!-- Package 4 -->
+        <div class="package">
+            <img src="https://via.placeholder.com/280x150?text=Diamond" alt="Diamond">
+            <h2>Diamond - Ksh 15000</h2>
+            <p>5 Apps Daily for 365 Days | Ksh 700/day</p>
+            <button class="payment-button" onclick="openPaymentModal('Diamond')">Buy Package</button>
         </div>
-        <button class="btn" onclick="openPayment()">Purchase</button>
-      </div>
 
-      <div class="package locked">
-        <img src="https://img.icons8.com/ios-glyphs/90/lock.png" />
-        <h3>Platinum - KES 30,000</h3>
-        <p>7 apps daily · KES 1,200/day</p>
-        <button class="btn" disabled>Locked</button>
-      </div>
+        <!-- Locked Packages -->
+        <div class="package locked">
+            <img src="https://via.placeholder.com/280x150?text=Ruby" alt="Ruby">
+            <h2>Ruby - Ksh 30000</h2>
+            <p>7 Apps Daily | Ksh 1200/day</p>
+        </div>
 
-      <div class="package locked">
-        <img src="https://img.icons8.com/ios-glyphs/90/lock.png" />
-        <h3>Obsidian - KES 56,000</h3>
-        <p>10 apps daily · KES 3,000/day</p>
-        <button class="btn" disabled>Locked</button>
-      </div>
+        <div class="package locked">
+            <img src="https://via.placeholder.com/280x150?text=Emerald" alt="Emerald">
+            <h2>Emerald - Ksh 56000</h2>
+            <p>10 Apps Daily | Ksh 3000/day</p>
+        </div>
+    </section>
+
+    <!-- Payment Modal -->
+    <div id="paymentModal" class="modal">
+        <div class="modal-content">
+            <h2>Send Payment to: <br><strong>0796940064</strong></h2>
+            <p>Enter MPESA Confirmation Code:</p>
+            <input type="text" id="mpesaCode" placeholder="Enter MPESA Code">
+            <button class="payment-button" onclick="processPayment()">Submit Code</button>
+        </div>
     </div>
-  </div>
 
-  <div id="paymentModal">
-    <div class="modal-content">
-      <h3>Payment</h3>
-      <p>Send money to <strong>0796940064</strong></p>
-      <input type="text" placeholder="Enter M-PESA Code" id="mpesaCode" />
-      <button class="btn" onclick="confirmPayment()">Confirm</button>
-      <button class="btn" onclick="closePayment()">Cancel</button>
-    </div>
-  </div>
+    <footer>
+        &copy; 2025 MEGANITE. All rights reserved.
+    </footer>
 
-  <div id="processingModal">
-    <div class="modal-content">
-      <h3>Processing...</h3>
-      <p>Please wait while we confirm your code.</p>
-    </div>
-  </div>
+    <script>
+        function openPaymentModal(packageName) {
+            document.getElementById('paymentModal').style.display = 'flex';
+        }
 
-  <script>
-    function openPayment() {
-      document.getElementById("paymentModal").style.display = "flex";
-    }
-
-    function closePayment() {
-      document.getElementById("paymentModal").style.display = "none";
-    }
-
-    function confirmPayment() {
-      const code = document.getElementById("mpesaCode").value.trim();
-      if (code) {
-        document.getElementById("paymentModal").style.display = "none";
-        document.getElementById("processingModal").style.display = "flex";
-        setTimeout(() => {
-          document.getElementById("processingModal").style.display = "none";
-          alert("Payment confirmed with code: " + code);
-        }, 3000);
-      } else {
-        alert("Please enter your M-PESA code.");
-      }
-    }
-
-    // Daily reset logic (simulated)
-    const resetTasks = () => {
-      console.log("Tasks reset for the day at midnight.");
-    }
-    const now = new Date();
-    const midnight = new Date();
-    midnight.setHours(24, 0, 0, 0);
-    setTimeout(() => {
-      resetTasks();
-      setInterval(resetTasks, 86400000);
-    }, midnight - now);
-  </script>
+        function processPayment() {
+            const code = document.getElementById('mpesaCode').value;
+            if (code.trim().length > 5) {
+                alert('Processing payment for code: ' + code);
+                document.getElementById('paymentModal').style.display = 'none';
+            } else {
+                alert('Please enter a valid MPESA code');
+            }
+        }
+    </script>
 </body>
+
 </html>
